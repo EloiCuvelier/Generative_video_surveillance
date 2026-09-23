@@ -97,9 +97,14 @@ Select a video from the dataset. The graph plots, frame by frame, the cosine sim
 
 ---
 
-## Note on Model Selection & Benchmarking
+## Model Selection & Benchmarking
 
-Originally conducted as a collaborative group project, this repository focuses exclusively on MetaCLIP, which emerged as the optimal architecture after a rigorous comparative study benchmarking 8 different vision-language models.
+Originally conducted as a collaborative research project, this repository focuses exclusively on **MetaCLIP**, which was selected following a comparative evaluation across 8 vision-language architectures on zero-shot surveillance anomaly classification.
 
----
+<p align="center">
+  <img width="2000" height="437" alt="image" src="https://github.com/user-attachments/assets/da301ae9-5678-4a56-b0eb-48da24f1ae4d" />
+ 
+</p>
+
+*Models were evaluated across single-frame inference and multiple temporal aggregation strategies (`video_mean`, `video_best`, `video_vote`) at Top-1, Top-3, and Top-5 accuracy.*
 
