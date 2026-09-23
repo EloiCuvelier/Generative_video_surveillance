@@ -80,7 +80,7 @@ Tab 3 Sequences : Search by sequences — Sliding window over the frames of each
 Tab 4 Class Similarity :  Select a video from the dataset. The graph plots, frame by frame, the cosine similarity with each of the 13 classes. Class embeddings are computed via prompt ensembling: averaging 5 description vectors per class
 
 <img width="1542" height="942" alt="image" src="https://github.com/user-attachments/assets/3ad9865f-4be9-4ffb-bdfb-ecb6d01b8ffb" />
-Tab 5 t-SNE Map : 
+Tab 5 t-SNE Map : 2D projection of the 512D MetaCLIP video embeddings, preserving distances between vectors to reveal clusters by crime class.
 
 
 
