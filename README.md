@@ -87,7 +87,7 @@ Tab 5 t-SNE Map : 2D projection of the 512D MetaCLIP video embeddings, preservin
 
 ## Note on Model Selection & Benchmarking
 
-Originally conducted as a collaborative group project, this repository focuses exclusively on **MetaCLIP**, which emerged as the optimal architecture after a rigorous comparative study benchmarking **8 different vision-language models** (including various standard CLIP checkpoints and MobileCLIP). The complete evaluation logs, comparative metrics, and performance charts are preserved in the `results/` directory to document this engineering decision.
+Originally conducted as a collaborative group project, this repository focuses exclusively on MetaCLIP, which emerged as the optimal architecture after a rigorous comparative study benchmarking 8 different vision-language models.
 
 ---
 
