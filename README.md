@@ -15,20 +15,27 @@ This project allows users to search through video surveillance footage using nat
 ```text
 Generative_Video_Surveillance/
 │
-├── .gitignore                   # Excludes heavy datasets and temporary results
-├── requirements.txt             # List of required Python packages and versions
-├── extract_frames.py            # Step 1: Extract images from videos
-├── encode_metaclip.py           # Step 2: Convert images into AI embeddings
-├── indexation_faiss.py          # Step 3: Build the fast search index
+├── Dataset/                     # Raw UCF-Crime video dataset (.mp4)
+├── frames/                      # Extracted video frames (1 fps)
+├── results/                     # Embeddings, FAISS index & evaluation outputs
+├── .gitignore                   # Excludes heavy folders (Dataset/, frames/, results/)
+├── requirements.txt             # Required Python packages
+├── extract_frames.py            # Step 1: Extract frames from videos
+├── encode_metaclip.py           # Step 2: Generate MetaCLIP embeddings
+├── indexation_faiss.py          # Step 3: Build the FAISS search index
 ├── classification_zeroshot.py   # Step 4: Evaluate zero-shot classification
-└── interface_gradio.py          # Step 5: Launch the interactive web app
+├── interface_gradio.py          # Step 5: Launch the Gradio web dashboard
+└── README.md                    # Project documentation
 ```
 
 ## Installation
 
 ```bash
-git clone [https://github.com/EloiCuvelier/Generative_video_surveillance.git](https://github.com/EloiCuvelier/Generative_video_surveillance.git)
+git clone https://github.com/EloiCuvelier/Generative_video_surveillance.git
 cd Generative_video_surveillance
+# Install system dependencies (FFmpeg is required for frame extraction)
+# Ubuntu/Debian: sudo apt install ffmpeg
+# macOS: brew install ffmpeg
 pip install -r requirements.txt
 
 ```
@@ -40,13 +47,14 @@ Here is a simple explanation of each step in the project:
 
 1. **Frame Extraction (`extract_frames.py`)**  
    We take the raw videos from the dataset and use FFmpeg to slice each video into individual still images (photos) at a rate of one frame per second. This allows us to work with separate images instead of heavy video files.
+    ```bash
    python extract_frames.py
-
+    ```
 2. **Model Encoding (`encode_metaclip.py`)**
     We pass all these extracted images through the MetaCLIP AI model. The model analyzes each image and translates it into a long sequence of numbers (a vector), converting visual content into a mathematical format that the computer can process.
-    
+    ```bash 
     python encode_metaclip.py
-
+     ```
 3. **FAISS Indexing (`indexation_faiss.py`)**  
    We gather all these mathematical vectors into an ultra-fast database called FAISS. This enables instant similarity searches without having to scan through every single image one by one.
    ```bash
@@ -63,23 +71,27 @@ Here is a simple explanation of each step in the project:
    ```bash
    python interface_gradio.py
    ```
-<img width="1532" height="951" alt="image" src="https://github.com/user-attachments/assets/64f98794-44a7-4931-ae61-b73dbf52f3b9" />
-Tab 1 Frames : Search by individual frames — Returns the top N frames from the dataset most similar to your query.
+## Web Dashboard Overview (Gradio)
 
+### Tab 1 — Frame-Level Search
+Returns the top N frames from the dataset most similar to your natural language query.
+<img width="1532" height="951" alt="Tab 1 Frames" src="https://github.com/user-attachments/assets/64f98794-44a7-4931-ae61-b73dbf52f3b9" />
 
-<img width="1527" height="957" alt="image" src="https://github.com/user-attachments/assets/333acb4d-b473-4560-bafb-f9d38f5abe8c" />
-Tab 2 Videos : Search by videos — Aggregates the scores of all frames in each video (average of the top-K frames). The thumbnail shown is the most similar frame of the video.
+### Tab 2 — Video-Level Search
+Aggregates the scores of all frames in each video (average of the top-K frames). The thumbnail shown is the most similar frame of the video.
+<img width="1527" height="957" alt="Tab 2 Videos" src="https://github.com/user-attachments/assets/333acb4d-b473-4560-bafb-f9d38f5abe8c" />
 
+### Tab 3 — Sequence Detection
+Sliding window over the frames of each video. Returns the continuous segments most similar to the query with their timestamp interval `[t_start → t_end]`.
+<img width="1527" height="947" alt="Tab 3 Sequences" src="https://github.com/user-attachments/assets/cddd640c-2b38-40fd-931e-afa5c4632e8a" />
 
-<img width="1527" height="947" alt="image" src="https://github.com/user-attachments/assets/cddd640c-2b38-40fd-931e-afa5c4632e8a" />
-Tab 3 Sequences : Search by sequences — Sliding window over the frames of each video. Returns the continuous segments most similar to the query with their timestamp interval [t_start → t_end].
+### Tab 4 — Class Similarity Timeline
+Select a video from the dataset. The graph plots, frame by frame, the cosine similarity with each of the 13 classes. Class embeddings are computed via prompt ensembling: averaging 5 description vectors per class.
+<img width="1580" height="837" alt="Tab 4 Class Similarity" src="https://github.com/user-attachments/assets/cdad0577-3f7b-4366-8ac2-6989ff2351a8" />
 
-<img width="1580" height="837" alt="image" src="https://github.com/user-attachments/assets/cdad0577-3f7b-4366-8ac2-6989ff2351a8" />
-Tab 4 Class Similarity :  Select a video from the dataset. The graph plots, frame by frame, the cosine similarity with each of the 13 classes. Class embeddings are computed via prompt ensembling: averaging 5 description vectors per class.
-
-<img width="1542" height="942" alt="image" src="https://github.com/user-attachments/assets/3ad9865f-4be9-4ffb-bdfb-ecb6d01b8ffb" />
-Tab 5 t-SNE Map : 2D projection of the 512D MetaCLIP video embeddings, preserving distances between vectors to reveal clusters by crime class.
-
+### Tab 5 — 2D t-SNE Embedding Map
+2D projection of the 512D MetaCLIP video embeddings, preserving distances between vectors to reveal clusters by crime class.
+<img width="1542" height="942" alt="Tab 5 t-SNE Map" src="https://github.com/user-attachments/assets/3ad9865f-4be9-4ffb-bdfb-ecb6d01b8ffb" />
 
 
 
