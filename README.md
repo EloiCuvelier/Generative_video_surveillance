@@ -66,13 +66,17 @@ Here is a simple explanation of each step in the project:
    python interface_gradio.py
    ```
 <img width="1532" height="951" alt="image" src="https://github.com/user-attachments/assets/64f98794-44a7-4931-ae61-b73dbf52f3b9" />
-Tab 1 : Search by individual frames — Returns the top N frames from the dataset most similar to your query.
+Tab 1 : Search by individual frames — Returns the top N frames from the dataset most similar to your query.  
+
 
 <img width="1527" height="957" alt="image" src="https://github.com/user-attachments/assets/333acb4d-b473-4560-bafb-f9d38f5abe8c" />
-Tab 2 : Search by videos — Aggregates the scores of all frames in each video (average of the top-K frames). The thumbnail shown is the most similar frame of the video.
+Tab 2 : Search by videos — Aggregates the scores of all frames in each video (average of the top-K frames). The thumbnail shown is the most similar frame of the video.  
+
 
 <img width="1527" height="947" alt="image" src="https://github.com/user-attachments/assets/cddd640c-2b38-40fd-931e-afa5c4632e8a" />
 Tab 3 : Search by sequences — Sliding window over the frames of each video. Returns the continuous segments most similar to the query with their timestamp interval [t_start → t_end].
+
+
 
 
 ---
