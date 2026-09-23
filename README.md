@@ -12,7 +12,7 @@ This project allows users to search through video surveillance footage using nat
 
 ## Project Structure
 
-
+```text
 Generative_Video_Surveillance/
 │
 ├── .gitignore                   # Excludes heavy datasets and temporary results
@@ -22,9 +22,7 @@ Generative_Video_Surveillance/
 ├── indexation_faiss.py          # Step 3: Build the fast search index
 ├── classification_zeroshot.py   # Step 4: Evaluate zero-shot classification
 └── interface_gradio.py          # Step 5: Launch the interactive web app
-
-
----
+```
 
 ## Installation
 
