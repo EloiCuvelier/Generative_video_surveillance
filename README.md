@@ -33,38 +33,38 @@ git clone [https://github.com/EloiCuvelier/Generative_video_surveillance.git](ht
 cd Generative_video_surveillance
 pip install -r requirements.txt
 
-
+```
 ---
 
-## 📖 Step-by-Step Pipeline
+## Step-by-Step Pipeline
 
 Here is a simple explanation of each step in the project:
 
 1. **Frame Extraction (`extract_frames.py`)**  
    We take the raw videos from the dataset and use FFmpeg to slice each video into individual still images (photos) at a rate of one frame per second. This allows us to work with separate images instead of heavy video files.
-   ```bash
    python extract_frames.py
 
 2. **Model Encoding (`encode_metaclip.py`)**
     We pass all these extracted images through the MetaCLIP AI model. The model analyzes each image and translates it into a long sequence of numbers (a vector), converting visual content into a mathematical format that the computer can process.
-    ```bash
+    
     python encode_metaclip.py
 
 3. **FAISS Indexing (`indexation_faiss.py`)**  
    We gather all these mathematical vectors into an ultra-fast database called FAISS. This enables instant similarity searches without having to scan through every single image one by one.
    ```bash
    python indexation_faiss.py
+   ```
 
 4. **Zero-Shot Classification (`classification_zeroshot.py`)**  
    We test the model's ability to automatically recognize different categories in our dataset (such as fights, accidents, or thefts) without needing prior task-specific training on them.
    ```bash
    python classification_zeroshot.py
-
+   ```
 5. **Interactive Web Interface (`interface_gradio.py`)**  
    We launch a visual dashboard on a web page using Gradio. It features 5 tabs to search for images using text queries, rank entire video clips, detect temporal time sequences, display similarity curves, or explore an interactive 2D map (t-SNE).
    ```bash
    python interface_gradio.py
-
+   ```
 
 ---
 
